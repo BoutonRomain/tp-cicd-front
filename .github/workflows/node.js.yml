@@ -29,3 +29,22 @@ jobs:
       run: npm run lint
     - name: Run typecheck
       run: npm run type-check
+
+  deploy:
+
+    if: ${{ github.ref_name }} == 'tag'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Deploy to Render
+        uses: gh-actions-workflows/deploy-docker-render@v1.1
+        with:
+          deploy-hook: ${{ secrets.BACK_DEPLOY_HOOK }}
+          image-url: ${{ env.imagename }}
+          render-api-key: ${{ secrets.RENDER_API_KEY }}
+          wait-for-deployment: true
+      - name: Deploy
+        uses: bankfliptech/deploy-to-render@v1
+        with:
+          serviceId: ${{ secrets.RENDER_SERVICE_ID }}
+          apiKey: ${{ secrets.RENDER_API_KEY }}
+          deployHookURL: ${{ secrets.FRONT_DEPLOY_HOOK }}

@@ -35,13 +35,6 @@ jobs:
     if: ${{ github.ref_name }} == 'tag'
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to Render
-        uses: gh-actions-workflows/deploy-docker-render@v1.1
-        with:
-          deploy-hook: ${{ secrets.BACK_DEPLOY_HOOK }}
-          image-url: romainbouton/back:${{ github.ref_name }}
-          render-api-key: ${{ secrets.RENDER_API_KEY }}
-          wait-for-deployment: true
       - name: Deploy
         uses: bankfliptech/deploy-to-render@v2
         with:

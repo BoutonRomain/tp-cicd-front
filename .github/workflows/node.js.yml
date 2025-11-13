@@ -33,7 +33,6 @@ jobs:
   deploy:
     needs: build
     environment: ${{ (github.ref_name == 'master' || github.ref_type == 'tag') && 'Production' || github.ref_name == 'develop' && 'Développement' }}
-    if: github.environment != false
     runs-on: ubuntu-latest
     steps:
       - name: Deploy

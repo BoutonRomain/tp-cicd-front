@@ -39,7 +39,7 @@ jobs:
         uses: gh-actions-workflows/deploy-docker-render@v1.1
         with:
           deploy-hook: ${{ secrets.BACK_DEPLOY_HOOK }}
-          image-url: ${{ env.imagename }}
+          image-url: romainbouton/back:${{ github.ref_name }}
           render-api-key: ${{ secrets.RENDER_API_KEY }}
           wait-for-deployment: true
       - name: Deploy
